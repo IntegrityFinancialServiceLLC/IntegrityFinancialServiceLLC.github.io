@@ -1,2 +1,2 @@
 # IntegrityFinancialServiceLLC.github.io
-The campaign subdomain of integrityfinancialservicellc.com
+campaigns.integrityfinancialservicellc.com redirects here; hosted on Github Pages
