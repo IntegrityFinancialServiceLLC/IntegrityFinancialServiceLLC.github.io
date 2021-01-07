@@ -71,18 +71,18 @@ function Images(cb) {
   .pipe(cache(imagemin({
       interlaced: true
     })))
-  .pipe(gulp.dest('dist/images'))
+  .pipe(gulp.dest('docs/images'))
 }
 
 function Fonts(cb) {
   return gulp.src('app/fonts/**/*')
-  .pipe(gulp.dest('dist/fonts'))
+  .pipe(gulp.dest('docs/fonts'))
 }
 
 function Useref(cb) {
     gulp.src('app/*.html')
     .pipe(useref())
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('docs'))
 
     gulp.src('app/js/*.js')
     .pipe(sourcemaps.init())
@@ -90,14 +90,14 @@ function Useref(cb) {
     .pipe(uglify())
     .pipe(rename({ suffix: '.min'}))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/js/'))
+    .pipe(gulp.dest('docs/js/'))
 
     gulp.src('app/js/custom/*.js')
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/js/custom'))
+    .pipe(gulp.dest('docs/js/custom'))
 
     // cstom vs no custom in dist
     // gulp.src('app/css/*.css')
@@ -109,20 +109,20 @@ function Useref(cb) {
     gulp.src('app/css/**/*.css')
     .pipe(postcss([ autoprefixer ]))
     .pipe(csso())
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(gulp.dest('docs/css/'))
     cb();
 
 }
 
 function CleanDist(cb) {
-  del.sync('dist/**/*');
+  del.sync('docs/**/*');
   cb();
 }
 
 function CleanCode(cb) {
-  del.sync('dist/js/}');
-  del.sync('dist/css}');
-  del.sync('dist/index.html');
+  del.sync('docs/js/}');
+  del.sync('docs/css}');
+  del.sync('docs/index.html');
   cb();
 }
 
