@@ -1,0 +1,695 @@
+/* Imports */
+@import "../bootstrap";
+/* Variables */
+$primary-color: #ffcc00;
+$popup-window-bg-color: lightgrey;
+$bot-click-hover-color: linear-gradient(to bottom, #ffffff 0%, #afafaf 100%);
+$review-middle-offset: 2%;
+$review-initial-offset: 3%;
+$review-width: 30%;
+$popup-transition-duration: 0.5s;
+$chat-bubble-transition-duration: 0.2s;
+$xs: 0;
+$sm: 576px;
+$md: 767px;
+$lg: 992px;
+$xl: 1200px;
+
+@media screen and (max-width: $md) {
+    * {
+        font-size: large;
+    }
+}
+* {
+}
+
+@media screen and (max-width: $md) {
+    body {
+        // overflow:hidden;
+    }
+}
+
+p {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-size: larger;
+}
+ul {
+    list-style: none;
+    list-style-type: none;
+}
+a .no-link {
+    color: white !important;
+}
+
+.no-link:hover {
+    color: inherit;
+}
+
+.navbar-inner {
+    margin: 0 auto;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-dark {
+    color: white;
+    p,
+    h6,
+    h5,
+    h4,
+    h3,
+    h2,
+    h1 {
+        filter: drop-shadow(10px 10px 30px #000) !important;
+    }
+}
+
+.bg-light {
+    background: lightgrey;
+}
+
+#clickMe .btn-primary,
+#clickMe1 .btn-primary {
+    padding: 20px;
+    border-color: lighten($primary-color, 10%);
+    background-color: $primary-color;
+    color: black;
+    border-radius: 0% 0% 20% 20% / 0% 0% 5% 5%;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s ease, opacity 1s ease;
+    -webkit-transition: all 0.4s ease, opacity 1s ease;
+}
+#clickMe .button-round:hover,
+#clickMe1 .button-round:hover {
+    background-color: lighten($primary-color, 20%);
+    border-color: lighten($primary-color, 20%);
+    border-radius: 0;
+    padding: 20px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s ease, opacity 1s ease;
+    -webkit-transition: all 0.4s ease, opacity 1s ease;
+}
+
+#clickMe .button-round,
+#clickMe1 .button-round {
+    position: relative;
+    border-radius: 5% 5% 5% 5%;
+    color: black;
+    font-weight: bold;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease, opacity 1s ease;
+    -webkit-transition: all 0.4s ease, opacity 1s ease;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#clickMe .button-round:active,
+#clickMe1 .button-round:active {
+    background-color: lighten($primary-color, 20%);
+    border-color: lighten($primary-color, 20%);
+    transition: all 0.4s ease, opacity 1s ease;
+    -webkit-transition: all 0.4s ease, opacity 1s ease;
+}
+
+.jumbotron-custom {
+    height: 100%;
+    color: black;
+    border-color: white;
+    background-color: rgba(233, 236, 239, 0.8);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.25);
+    border-collapse: separate;
+    margin-bottom: 0;
+    padding: 0 0 0 0;
+}
+
+@media screen and (max-width: $md) {
+    .container {
+        margin-top: 10px;
+    }
+    .invisible-xs-md {
+        display: none;
+    }
+    .jumbotron-custom {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: rgba(255, 0, 0, 0);
+        box-shadow: none;
+        border-color: rgba(0, 0, 0, 0);
+    }
+}
+.footer-group {
+    padding-left: 0px;
+}
+.container-custom {
+    height: 100%;
+    vertical-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.shrink-vert {
+    position: relative;
+    top: 50%;
+    height: 10em;
+    margin-top: -5em;
+}
+
+.vert-center {
+}
+
+.transparent {
+    background-color: transparent !important;
+}
+
+.img-custom {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+.img-custom:hover {
+    transition: all 0.4s ease;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.15);
+}
+.drop-shadow {
+    filter: drop-shadow(10px 10px 30px #000) !important;
+}
+.container {
+    margin-top: 10px;
+}
+
+.center-piece {
+    color: white;
+    background-image: url("../../images/Water.jpg");
+    background-position: 50%, 23;
+    background-repeat: round;
+    padding-bottom: 20px;
+
+    &-footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.top-buffer {
+    margin-top: 20px !important;
+}
+
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    box-sizing: border-box;
+    background-color: white;
+    max-width: 100%;
+}
+
+.container-fluid {
+    background-color: #ffffff;
+}
+
+.survey {
+    display: none;
+    background-color: lightgrey;
+    position: fixed;
+    width: 500px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    padding: 20px, 20px, 20px, 20px;
+}
+
+.carousel.slide img {
+    width: 100%;
+    height: auto;
+}
+
+.no-pad {
+    padding: 0 0 0 0 !important;
+}
+
+.no-mar {
+    margin: 0 0 0 0 !important;
+}
+
+ol.carousel-indicators {
+    bottom: -100px;
+}
+.carousel .item {
+    height: 260px;
+}
+
+.carousel-caption {
+    color: black;
+}
+
+.review-text {
+}
+
+.review-rating {
+}
+
+.review-date {
+}
+
+.review {
+    background-color: darken(#f8f9fa, 10%) !important;
+    border-style: solid;
+    border-color: darken(#f8f9fa, 60%) !important;
+}
+
+#tooltip {
+    font-weight: bold;
+    padding: 0;
+    background-color: white;
+    border-color: blue;
+    border-style: dotted;
+}
+
+.review-offset-middle {
+    margin-left: $review-middle-offset;
+    margin-right: $review-middle-offset;
+}
+
+.review-offset-initial {
+    margin-left: $review-initial-offset;
+}
+
+.col-review {
+    flex: 0 0 $review-width;
+    max-width: $review-width;
+}
+
+.star-rating {
+    font-size: 3rem;
+    color: $primary-color;
+}
+
+.footer-item {
+    padding-top: 20px;
+}
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: $popup-transition-duration;
+}
+
+.fade-out {
+    opacity: 0;
+    animation-name: fadeOutOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: $popup-transition-duration;
+}
+
+.chat-fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: $popup-transition-duration;
+}
+
+.logo-pop-in {
+    opacity: 1;
+    animation-name: logoTransition;
+    animation-timing-function: steps(1, jump-end);
+    animation-duration: 0.54s;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeOutOpacity {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes logoTransition {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#popup {
+    font-size: larger;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border-radius: 0px;
+    box-shadow: none;
+    visibility: hidden;
+}
+
+.popup-inner {
+    margin: 10px 10px 10px 10px;
+    height: 300%;
+    padding-top: 0;
+    max-width: 100%;
+    overflow-y: scroll;
+}
+
+.popup-header {
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    border-radius: 5px 5px 0px 0px;
+    background-color: black;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.popup-window {
+    height: 100%;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+    background-color: $popup-window-bg-color;
+    padding-top: 2%;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-inner {
+    text-align: center;
+}
+
+.chat-bubble {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    word-break: break-word;
+    background-color: white;
+    word-wrap: break-word;
+    font-size: 1rem;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 8px 15px;
+    width: auto;
+    max-width: 50%;
+
+    &.bot {
+        margin-right: 25%;
+        background-color: #eee;
+        position: relative;
+
+        &.last {
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                bottom: 0;
+                left: -7px;
+                height: 20px;
+                width: 20px;
+                background-color: inherit;
+                border-bottom-right-radius: 15px;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                bottom: 0;
+                left: -10px;
+                width: 10px;
+                height: 20px;
+                background: $popup-window-bg-color;
+                border-bottom-right-radius: 10px;
+            }
+        }
+    }
+
+    &.user {
+        color: white;
+        margin-left: 25%;
+        background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%);
+        background-attachment: fixed;
+        position: relative;
+
+        &.last {
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                bottom: 0;
+                right: -8px;
+                height: 20px;
+                width: 20px;
+                background: linear-gradient(
+                    to bottom,
+                    #00d0ea 0%,
+                    #0085d1 100%
+                );
+                background-attachment: fixed;
+                border-bottom-left-radius: 15px;
+                background-color: inherit;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                bottom: 0;
+                right: -10px;
+                width: 10px;
+                height: 20px;
+                background: lightgrey;
+                border-bottom-left-radius: 10px;
+            }
+        }
+    }
+}
+
+.chat-button .chat-bubble {
+    transition: background 5s ease;
+    &:hover {
+    transition: background 5s ease;
+    }
+    &.user {
+    transition: background 5s ease;
+        &:hover {
+    transition: background 5s ease;
+            background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%);
+            box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.08);
+        }
+    }
+    &.bot {
+    transition: background 5s ease;
+        &:hover {
+    transition: background 5s ease;
+            background: $bot-click-hover-color;
+            box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.08);
+        }
+    }
+}
+
+.clickable-bubble {
+    background-color: $primary-color;
+}
+
+.bot-tag {
+    display: inline-block;
+    vertical-align: top;
+}
+.bot-logo {
+    position: relative;
+    border-radius: 10px;
+    width: 78px;
+    height: 60px;
+}
+
+.col-xs-0 {
+    width: 0%;
+    max-width: 0%;
+    flex: 0 0 0;
+}
+.col-xs-1 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#closePopup {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+}
+
+#closePopup:hover {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+    color: #fff;
+}
+
+.content-column {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.chat-row {
+    padding: 0px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.user-clock {
+    text-align: right;
+    position: relative;
+}
+.bot-clock {
+    text-align: left;
+    position: relative;
+    bottom: 5px;
+}
+
+.clock-text {
+    font-size: 0.8rem;
+    padding: 0 0 0 0;
+}
+
+input {
+    width: 100%;
+}
+
+.logo-column {
+    padding-right: 0px;
+    padding-left: 10px;
+    text-align: right;
+}
+
+@media screen and (max-width: $md) {
+    #popup {
+        top: -30px;
+    }
+    .chat-bubble {
+        max-width: 100%;
+        width: 100%;
+    }
+    .popup-inner {
+        margin: 0 0 0 0;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .popup-header {
+        border-radius: 0px;
+        box-shadow: none;
+    }
+
+    .popup-window {
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: $sm) {
+    .clock-text {
+        font-size: 0.5rem;
+    }
+    .user-clock {
+        position: relative;
+        bottom: 0;
+    }
+    .logo-column {
+        max-height: 100%;
+    }
+}
+@media screen and (max-width: $lg) {
+    .chat-bubble {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: $md) {
+    .bot-logo {
+        height: 45px;
+        width: 60px;
+        left: 20px;
+    }
+}
+
+@media screen and (max-width: $sm) {
+    .bot-logo {
+        height: 37px;
+        width: 50px;
+    }
+}
+
+input {
+    width: 100%;
+}
+
+input[type="text"] {
+    padding-right: 50px;
+}
+
+input[type="submit"] {
+    height: 25px;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.form-control {
+    font-size: large;
+    height: 50px;
+}
+
+.section-title {
+    text-align: left;
+    margin-left: 5px;
+}
+.section-icon {
+    max-height: 30px;
+    text-align: center; /*  added  */
+    margin-right: 5px;
+}
+
+.row [class*="col-"] .jumbotron {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

@@ -18,9 +18,9 @@ var date = new Date();
 // var gitRepoURL = 'https://github.com/integrityfinancialservicellc/integrityfinancialservicellc.github.io';
 
 
-exports.default = gulp.series(CleanDist, Scss, Useref, BrowserSync, Watch);
+exports.default = gulp.series(CleanCode, Scss, Useref, BrowserSync, Watch);
 exports.update = gulp.series(gulp.parallel(CleanCode, Scss, Fonts), Useref);
-exports.updateFull = gulp.series(gulp.parallel(CleanDist, Scss, Fonts, Images), Useref); 
+exports.updateFull = gulp.series(gulp.parallel(CleanDocs, Scss, Fonts, Images), Useref); 
 
 function BrowserSync(cb) {
   browserSync.init({
@@ -106,16 +106,22 @@ function Useref(cb) {
     // .pipe(rename({ suffix: '.min'}))
     // .pipe(gulp.dest('dist/css/'))
 
+    let plugins = [
+      autoprefixer({
+        cascade: false,
+        grid: true
+      })
+    ]
     gulp.src('app/css/**/*.css')
-    .pipe(postcss([ autoprefixer ]))
+    .pipe(postcss(plugins))
     .pipe(csso())
     .pipe(gulp.dest('docs/css/'))
     cb();
 
 }
 
-function CleanDist(cb) {
-  del.sync('docs/**/*');
+function CleanDocs(cb) {
+  del.sync(['docs/**/*', '!docs/CNAME', '!docs/keys/**/*', "!docs/keys"]);
   cb();
 }
 

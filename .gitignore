@@ -1,4 +1,4 @@
 node_modules
-app/scss/*
+*.scss
 
-!app/scss/custom/*
+!style.scss
