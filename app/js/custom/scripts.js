@@ -20,7 +20,7 @@ function closePopup() {
     el.removeClass("fade-in").addClass("fade-out");
     el.attr("style", "visibility:hidden");
     // if ($(window).width() >= 768) {
-        $("body").css({ overflow: "auto" });
+    $("body").css({ overflow: "auto" });
     // }
 }
 
@@ -51,19 +51,8 @@ let chatbot = (function () {
                 style: "text",
                 writer: "bot",
             });
-            await writeText({
-                text:
-                    "First let's make sure you're not a robot.  Click on this bubble.",
-                style: "button",
-                writer: "bot",
-            });
-            await writeText({
-                text: "I'm not a robot!",
-                style: "text",
-                writer: "user",
-            });
             fields.name = await writeText({
-                text: "Perfect! What's your name?",
+                text: "First of all, what is your name?",
                 style: "form",
                 field: "name",
                 writer: "bot",
@@ -101,6 +90,38 @@ let chatbot = (function () {
                 text: fields.phone,
                 style: "text",
                 writer: "user",
+            });
+            fields.email = await writeText({
+                text:
+                    "Great! And what is a good email we can send your book to? (Again, we won't spam you)",
+                style: "form",
+                field: "email",
+                writer: "bot",
+            });
+            await writeText({
+                text: `${fields.email}`,
+                style: "text",
+                writer: "user",
+            });
+            await writeText({
+                text: `Perfect ${fields.name}. What would best describe the amount of investable assets you have saved for retirement? (We customize the information we send based on your situation)`,
+                style: "selection",
+                writer: "bot",
+            });
+            await writeText({
+                text: `${fields.portfolioSize}`,
+                style: "text",
+                writer: "user",
+            });
+            await writeText({
+                text: `Great ${fields.name}, one last thing.  We need to make sure you're a real person!  Solve the captcha below and we'll get that book sent over to you!`,
+                style: "text",
+                writer: "bot",
+            });
+            await writeText({
+                text: fields.email,
+                style: "captcha",
+                writer: "bot",
             });
         }
     };
@@ -202,17 +223,30 @@ async function writeText(options) {
             returnValue = pauseUntil(`#${options.field}-input`);
 
             break;
-        case "button":
-            let wrapper = document.createElement("a");
-            wrapper.style.color = 'black';
-            let parent = chat[0].parentNode;
-            parent.replaceChild(wrapper, chat[0]);
-            wrapper.appendChild(chat[0]);
-            wrapper.classList.add("chat-button");
+        case "selection":
             chat.append('<p class="chat-text">' + options.text + "</p>");
+            let options = [
+              'Less than $100,000 of investable assets saved for retirement',
+              'Between $100,000 and $250,000 of investable assets saved for retirement',
+              'Between $250,000 and $500,000 of investable assets saved for retirement',
+              'Between $500,000 and $1,000,000 of investable assets saved for retirement',
+              'Over $1,000,000 of investable assets saved for retirement'
+              ]
+            break;
+        case "captcha":
+            chat.append('<p class="chat-text">' + options.text + "</p>");
+            let captchaContainer;
+            let loadCaptcha = function () {
+                captchaContainer = grecaptcha.render("captcha_container", {
+                    sitekey: "Your sitekey",
+                    callback: function (response) {
+                        console.log(response);
+                    },
+                });
+            };
+            loadCaptcha();
 
             pause = true;
-            chat.on("click", unpause);
             returnValue = pauseUntil();
             break;
     }
