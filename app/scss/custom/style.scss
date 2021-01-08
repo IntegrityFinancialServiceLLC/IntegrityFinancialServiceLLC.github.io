@@ -3,7 +3,7 @@
 /* Variables */
 $primary-color: #ffcc00;
 $popup-window-bg-color: lightgrey;
-$bot-click-hover-color: linear-gradient(to bottom, #ffffff 0%, #afafaf 100%);
+$bot-click-hover-color: linear-gradient(to bottom, #979795 0%, #777676 100%);
 $review-middle-offset: 2%;
 $review-initial-offset: 3%;
 $review-width: 30%;
@@ -18,14 +18,6 @@ $xl: 1200px;
 @media screen and (max-width: $md) {
     * {
         font-size: large;
-    }
-}
-* {
-}
-
-@media screen and (max-width: $md) {
-    body {
-        // overflow:hidden;
     }
 }
 
@@ -159,9 +151,6 @@ a .no-link {
     margin-top: -5em;
 }
 
-.vert-center {
-}
-
 .transparent {
     background-color: transparent !important;
 }
@@ -257,8 +246,6 @@ ol.carousel-indicators {
 .review-rating {
 }
 
-.review-date {
-}
 
 .review {
     background-color: darken(#f8f9fa, 10%) !important;
@@ -503,21 +490,14 @@ ol.carousel-indicators {
 
 .chat-button .chat-bubble {
     transition: background 5s ease;
-    &:hover {
-    transition: background 5s ease;
-    }
     &.user {
-    transition: background 5s ease;
         &:hover {
-    transition: background 5s ease;
             background: linear-gradient(to bottom, #00d0ea 0%, #0085d1 100%);
             box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.08);
         }
     }
     &.bot {
-    transition: background 5s ease;
         &:hover {
-    transition: background 5s ease;
             background: $bot-click-hover-color;
             box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.08);
         }
