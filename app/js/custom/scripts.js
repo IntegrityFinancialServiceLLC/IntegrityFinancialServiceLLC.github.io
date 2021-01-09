@@ -105,9 +105,10 @@ let chatbot = (function () {
             });
             fields.portfolioSize = await writeText({
                 text: `Perfect ${fields.name}. What would best describe the amount of investable assets you have saved for retirement? (We customize the information we send based on your situation)`,
-                style: "selection",
+                style: "portfolio",
                 writer: "bot",
             });
+            console.log(fields);
             await writeText({
                 text: `${fields.portfolioSize}`,
                 style: "text",
@@ -220,10 +221,10 @@ async function writeText(options) {
             pause = true;
 
             go.on("click", unpause);
-            returnValue = pauseUntil(`#${options.field}-input`);
+            returnValue = pauseUntil(`#${options.field}-input`, (value) => value.val());
 
             break;
-        case "selection":
+        case "portfolio":
             chat.append('<p class="chat-text">' + options.text + "</p>");
             let sizes = [
                 "Less than $100,000 of investable assets saved for retirement",
@@ -237,32 +238,30 @@ async function writeText(options) {
             let selection = $(".portfolio-selection");
             for (const size of sizes) {
                 selection.append(
-                    `<button type="button" class="btn btn-light portolio-button" value="${size}" label="${size}">`
+                    `<button type="button" class="btn btn-light portfolio-button">${size}</button>`
                 );
             }
-
-            let portfolioSize;
             selection.on("click", "button", function () {
-                portfolioSize = $(this).attr("value");
+                $(this).attr('id','portfolio-size');
                 unpause();
             });
             chat.append("</div>");
 
             pause = true;
-            returnValue = pauseUntil(portfolioSize);
+            returnValue = pauseUntil('#portfolio-size', (value) => value.text());
             break;
         case "captcha":
             chat.append('<p class="chat-text">' + options.text + "</p>");
             let captchaContainer;
-            let loadCaptcha = function () {
-                captchaContainer = grecaptcha.render("captcha_container", {
-                    sitekey: "6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9",
-                    callback: function (response) {
-                        console.log(response);
-                    },
-                });
-            };
-            loadCaptcha();
+            // let loadCaptcha = function () {
+            //     captchaContainer = grecaptcha.render("captcha_container", {
+            //         sitekey: "6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9",
+            //         callback: function (response) {
+            //             console.log(response);
+            //         },
+            //     });
+            // };
+            // loadCaptcha();
 
             pause = true;
             returnValue = pauseUntil();
@@ -318,11 +317,11 @@ function delay(ms) {
 function unpause() {
     pause = false;
 }
-async function pauseUntil(element) {
+async function pauseUntil(element, fn) {
     while (pause) {
         await delay(100);
     }
-    return $(element).val();
+    return fn($(element));
 }
 
 function encryptFormData(data) {
