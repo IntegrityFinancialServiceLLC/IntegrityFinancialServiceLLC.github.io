@@ -103,7 +103,7 @@ let chatbot = (function () {
                 style: "text",
                 writer: "user",
             });
-            await writeText({
+            fields.portfolioSize = await writeText({
                 text: `Perfect ${fields.name}. What would best describe the amount of investable assets you have saved for retirement? (We customize the information we send based on your situation)`,
                 style: "selection",
                 writer: "bot",
@@ -203,7 +203,7 @@ async function writeText(options) {
 
     switch (options.style) {
         case "text":
-            chat.append('<p class="chat-text">' + options.text + "</p>");
+            chat.append(`<p class="chat-text">${options.text}</p>`);
             returnValue = delay(1000);
             break;
         case "form":
@@ -225,20 +225,38 @@ async function writeText(options) {
             break;
         case "selection":
             chat.append('<p class="chat-text">' + options.text + "</p>");
-            let options = [
-              'Less than $100,000 of investable assets saved for retirement',
-              'Between $100,000 and $250,000 of investable assets saved for retirement',
-              'Between $250,000 and $500,000 of investable assets saved for retirement',
-              'Between $500,000 and $1,000,000 of investable assets saved for retirement',
-              'Over $1,000,000 of investable assets saved for retirement'
-              ]
+            let sizes = [
+                "Less than $100,000 of investable assets saved for retirement",
+                "Between $100,000 and $250,000 of investable assets saved for retirement",
+                "Between $250,000 and $500,000 of investable assets saved for retirement",
+                "Between $500,000 and $1,000,000 of investable assets saved for retirement",
+                "Over $1,000,000 of investable assets saved for retirement",
+            ];
+
+            chat.append('<div class="portfolio-selection">');
+            let selection = $(".portfolio-selection");
+            for (const size of sizes) {
+                selection.append(
+                    `<button type="button" class="btn btn-light portolio-button" value="${size}" label="${size}">`
+                );
+            }
+
+            let portfolioSize;
+            selection.on("click", "button", function () {
+                portfolioSize = $(this).attr("value");
+                unpause();
+            });
+            chat.append("</div>");
+
+            pause = true;
+            returnValue = pauseUntil(portfolioSize);
             break;
         case "captcha":
             chat.append('<p class="chat-text">' + options.text + "</p>");
             let captchaContainer;
             let loadCaptcha = function () {
                 captchaContainer = grecaptcha.render("captcha_container", {
-                    sitekey: "Your sitekey",
+                    sitekey: "6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9",
                     callback: function (response) {
                         console.log(response);
                     },
