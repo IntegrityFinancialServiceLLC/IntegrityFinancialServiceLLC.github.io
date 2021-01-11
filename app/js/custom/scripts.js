@@ -40,79 +40,79 @@ let chatbot = (function () {
     return async function () {
         if (!executed) {
             executed = true;
-            // await writeText({
-            //     text: "Our book has been requested over NaN times!",
-            //     style: "text",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text:
-            //         "All we need some information to determine whether this book suits your needs.",
-            //     style: "text",
-            //     writer: "bot",
-            // });
-            // fields.name = await writeText({
-            //     text: "First of all, what is your name?",
-            //     style: "form",
-            //     field: "name",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text: fields.name,
-            //     style: "text",
-            //     writer: "user",
-            // });
-            // await writeText({
-            //     text: `Great! Nice to meet you ${fields.name}!`,
-            //     style: "text",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text:
-            //         "Before we go any further, we want you to know we take your data VERY seriously.",
-            //     style: "text",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text: `<a href=${privacyLink} target="_blank">Here</a> is our privacy policy.`,
-            //     style: "text",
-            //     writer: "bot",
-            // });
+            await writeText({
+                text: "Our book has been requested over NaN times!",
+                style: "text",
+                writer: "bot",
+            });
+            await writeText({
+                text:
+                    "All we need some information to determine whether this book suits your needs.",
+                style: "text",
+                writer: "bot",
+            });
+            fields.name = await writeText({
+                text: "First of all, what is your name?",
+                style: "form",
+                field: "name",
+                writer: "bot",
+            });
+            await writeText({
+                text: fields.name,
+                style: "text",
+                writer: "user",
+            });
+            await writeText({
+                text: `Great! Nice to meet you ${fields.name}!`,
+                style: "text",
+                writer: "bot",
+            });
+            await writeText({
+                text:
+                    "Before we go any further, we want you to know we take your data VERY seriously.",
+                style: "text",
+                writer: "bot",
+            });
+            await writeText({
+                text: `<a href=${privacyLink} target="_blank">Here</a> is our privacy policy.`,
+                style: "text",
+                writer: "bot",
+            });
 
-            // fields.phone = await writeText({
-            //     text:
-            //         "What's a good phone number to reach you at? (We won't spam you; only a one time confirmation)",
-            //     style: "form",
-            //     field: "phone",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text: fields.phone,
-            //     style: "text",
-            //     writer: "user",
-            // });
-            // fields.email = await writeText({
-            //     text:
-            //         "Great! And what is a good email we can send your book to? (Again, we won't spam you)",
-            //     style: "form",
-            //     field: "email",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text: `${fields.email}`,
-            //     style: "text",
-            //     writer: "user",
-            // });
-            // fields.portfolioSize = await writeText({
-            //     text: `Perfect ${fields.name}. What would best describe the amount of investable assets you have saved for retirement? (We customize the information we send based on your situation)`,
-            //     style: "portfolio",
-            //     writer: "bot",
-            // });
-            // await writeText({
-            //     text: `${fields.portfolioSize}`,
-            //     style: "text",
-            //     writer: "user",
-            // });
+            fields.phone = await writeText({
+                text:
+                    "What's a good phone number to reach you at? (We won't spam you; only a one time confirmation)",
+                style: "form",
+                field: "phone",
+                writer: "bot",
+            });
+            await writeText({
+                text: fields.phone,
+                style: "text",
+                writer: "user",
+            });
+            fields.email = await writeText({
+                text:
+                    "Great! And what is a good email we can send your book to? (Again, we won't spam you)",
+                style: "form",
+                field: "email",
+                writer: "bot",
+            });
+            await writeText({
+                text: `${fields.email}`,
+                style: "text",
+                writer: "user",
+            });
+            fields.portfolioSize = await writeText({
+                text: `Perfect ${fields.name}. What would best describe the amount of investable assets you have saved for retirement? (We customize the information we send based on your situation)`,
+                style: "portfolio",
+                writer: "bot",
+            });
+            await writeText({
+                text: `${fields.portfolioSize}`,
+                style: "text",
+                writer: "user",
+            });
             await writeText({
                 text: `Great ${fields.name}, one last thing.  We need to make sure you're a real person!  Solve the captcha below and we'll get that book sent over to you!`,
                 style: "text",
@@ -220,7 +220,9 @@ async function writeText(options) {
             pause = true;
 
             go.on("click", unpause);
-            returnValue = pauseUntil(`#${options.field}-input`, (value) => value.val());
+            returnValue = pauseUntil(`#${options.field}-input`, (value) =>
+                value.val()
+            );
 
             break;
         case "portfolio":
@@ -241,29 +243,47 @@ async function writeText(options) {
                 );
             }
             selection.on("click", "button", function () {
-                $(this).attr('id','portfolio-size');
+                $(this).attr("id", "portfolio-size");
                 unpause();
             });
             chat.append("</div>");
 
             pause = true;
-            returnValue = pauseUntil('#portfolio-size', (value) => value.text());
+            returnValue = pauseUntil("#portfolio-size", (value) =>
+                value.text()
+            );
             break;
         case "captcha":
             chat.append('<p class="chat-text">' + options.text + "</p>");
-            let captchaContainer;
-            let loadCaptcha = function () {
-                captchaContainer = grecaptcha.render("captcha_container", {
-                    sitekey: "6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9",
-                    callback: function (response) {
-                        console.log(response);
-                    },
-                });
-            };
-            loadCaptcha();
+            chat.append(`<button id="submit-button" 
+            class="g-recaptcha btn btn-light" 
+        data-sitekey="reCAPTCHA_site_key" 
+        data-callback="onSubmit" 
+        data-action="submit">Submit</button>`);
 
-            pause = true;
-            returnValue = pauseUntil();
+            $("#submit-button").on("click", async function () {
+                grecaptcha.ready(function () {
+                    grecaptcha
+                        .execute("6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9", {
+                            action: "submit",
+                        })
+                        .then(function (token) {
+                            const xmlhttp = new XMLHttpRequest();
+                            const url =
+                                "https://us-south.functions.appdomain.cloud/api/v1/web/dwstanley%40integrityfinancialservicellc.com_dev/mysite/contactus";
+                            xmlhttp.open("POST", url, true);
+                            xmlhttp.setRequestHeader(
+                                "Content-type",
+                                "application/x-www-form-urlencoded"
+                            );
+                            xmlhttp.onload = () => console.log(xmlhttp.status);
+                            xmlhttp.send(
+                                `name=${fields.name}&phone=${fields.phone}&email=${fields.email}&portfolioSize=${fields.portfolioSize}&token=${token}`
+                            );
+                        });
+                });
+            });
+
             break;
     }
     if (options.writer === "bot") {
@@ -325,4 +345,17 @@ async function pauseUntil(element, fn) {
 
 function encryptFormData(data) {
     let publicKey;
+}
+
+function onClick(e) {
+    e.preventDefault();
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute("6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9", {
+                action: "submit",
+            })
+            .then(function (token) {
+                // Add your logic to submit to your backend server here.
+            });
+    });
 }
