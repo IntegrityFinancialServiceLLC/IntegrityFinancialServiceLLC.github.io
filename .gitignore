@@ -2,5 +2,7 @@ node_modules
 backend
 *.scss
 psscripts
+recaptcha-keys.txt
+Hooks.txt
 
 !style.scss
