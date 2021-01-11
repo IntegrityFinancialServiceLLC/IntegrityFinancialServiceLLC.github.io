@@ -108,7 +108,6 @@ let chatbot = (function () {
                 style: "portfolio",
                 writer: "bot",
             });
-            console.log(fields);
             await writeText({
                 text: `${fields.portfolioSize}`,
                 style: "text",
@@ -221,7 +220,9 @@ async function writeText(options) {
             pause = true;
 
             go.on("click", unpause);
-            returnValue = pauseUntil(`#${options.field}-input`, (value) => value.val());
+            returnValue = pauseUntil(`#${options.field}-input`, (value) =>
+                value.val()
+            );
 
             break;
         case "portfolio":
@@ -242,29 +243,48 @@ async function writeText(options) {
                 );
             }
             selection.on("click", "button", function () {
-                $(this).attr('id','portfolio-size');
+                $(this).attr("id", "portfolio-size");
                 unpause();
             });
             chat.append("</div>");
 
             pause = true;
-            returnValue = pauseUntil('#portfolio-size', (value) => value.text());
+            returnValue = pauseUntil("#portfolio-size", (value) =>
+                value.text()
+            );
             break;
         case "captcha":
             chat.append('<p class="chat-text">' + options.text + "</p>");
-            let captchaContainer;
-            // let loadCaptcha = function () {
-            //     captchaContainer = grecaptcha.render("captcha_container", {
-            //         sitekey: "6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9",
-            //         callback: function (response) {
-            //             console.log(response);
-            //         },
-            //     });
-            // };
-            // loadCaptcha();
+            chat.append(`<button id="submit-button" 
+            class="g-recaptcha btn btn-light" 
+        data-sitekey="reCAPTCHA_site_key" 
+        data-callback="onSubmit" 
+        data-action="submit">Submit</button>`);
 
-            pause = true;
-            returnValue = pauseUntil();
+            $("#submit-button").on("click", async function () {
+                grecaptcha.ready(function () {
+                    grecaptcha
+                        .execute("6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9", {
+                            action: "submit",
+                        })
+                        .then(function (token) {
+                            const xmlhttp = new XMLHttpRequest();
+                            const url =
+                                "https://us-south.functions.appdomain.cloud/api/v1/web/dwstanley%40integrityfinancialservicellc.com_dev/mysite/contactus";
+                            xmlhttp.open("POST", url, true);
+                            xmlhttp.setRequestHeader(
+                                "Content-type",
+                                "application/x-www-form-urlencoded"
+                            );
+                            xmlhttp.onload = () => console.log(xmlhttp.status);
+                            xmlhttp.send(
+                                `name=${fields.name}&phone=${fields.phone}&email=${fields.email}&portfolioSize=${fields.portfolioSize}&token=${token}`
+                            );
+                            
+                        });
+                });
+            });
+
             break;
     }
     if (options.writer === "bot") {
@@ -327,3 +347,16 @@ async function pauseUntil(element, fn) {
 function encryptFormData(data) {
     let publicKey;
 }
+
+// function onClick(e) {
+//     e.preventDefault();
+//     grecaptcha.ready(function () {
+//         grecaptcha
+//             .execute("6Ld4LyQaAAAAAAcJgIAMJQCQ3B-ArchznBkWR7A9", {
+//                 action: "submit",
+//             })
+//             .then(function (token) {
+//                 // Add your logic to submit to your backend server here.
+//             });
+//     });
+// }

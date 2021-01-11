@@ -492,6 +492,17 @@ ol.carousel-indicators {
     }
 }
 
+.chat-bubble .portfolio-selection {
+
+  & .portfolio-button {
+
+  }
+}
+
+.invisible {
+  visibility:hidden;
+}
+
 .chat-button .chat-bubble {
     transition: background 5s ease;
     &.user {
@@ -507,7 +518,6 @@ ol.carousel-indicators {
         }
     }
 }
-
 .clickable-bubble {
     background-color: $primary-color;
 }
